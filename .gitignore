@@ -1,0 +1,11 @@
+# Packages
+node_modules
+
+# Build
+dist
+
+# Environment
+.env
+
+# Editors
+.vscode

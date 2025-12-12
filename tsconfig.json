@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    /* Base Options */
+    "target": "es2020" /* Modernizing to a recent standard */,
+    "module": "commonjs",
+    "lib": ["es2020"] /* Using 'es2020' lib instead of 'es6' */,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+
+    /* Strictness & Consistency */
+    "strict": true /* Enable all strict type-checking options */,
+    "forceConsistentCasingInFileNames": true /* Ensure file casing consistency */,
+    "noImplicitReturns": true /* Error on code paths that don't return a value */,
+    "noFallthroughCasesInSwitch": true /* Error on non-handled cases in switch statements */,
+
+    /* Module Interoperability */
+    "esModuleInterop": true /* Allow default imports from modules with no default export */,
+    "allowSyntheticDefaultImports": true /* Allows imports like `import express from 'express'` */,
+
+    /* Output and Source Mapping */
+    "sourceMap": true /* Generate source maps for debugging */,
+    "removeComments": true /* Remove comments from the emitted JavaScript */
+
+    /* Experimental Decorators (Useful for NestJS or advanced features) */
+    // "experimentalDecorators": true,
+    // "emitDecoratorMetadata": true,
+
+    /* Path Aliases (Optional but highly recommended for large projects) */
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "@routes/*": ["routes/*"],
+    //   "@services/*": ["services/*"]
+    // }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

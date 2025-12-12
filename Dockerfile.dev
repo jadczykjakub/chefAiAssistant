@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+# Install dev hot reload tool
+RUN npm install -g ts-node-dev
+
+COPY . .
+
+CMD ["sh", "-c", "\
+  if [ ! -d node_modules ]; then npm install; fi && \
+  ts-node-dev --respawn --transpile-only --poll src/server.ts"]
