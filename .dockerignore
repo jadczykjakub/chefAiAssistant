@@ -1,0 +1,19 @@
+# Packages
+node_modules
+
+# Build
+dist
+
+# Git
+.git
+.gitignore
+
+# Editors
+.vscode
+
+# Logs
+npm-debug.log
+
+# Environment
+*.env
+venv

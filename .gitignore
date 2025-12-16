@@ -1,0 +1,12 @@
+# Packages
+node_modules
+
+# Build
+dist
+
+# Environment
+.env
+venv
+
+# Editors
+.vscode
