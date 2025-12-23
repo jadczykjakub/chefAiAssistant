@@ -91,12 +91,12 @@ export class QdrantWrapper {
     const queryVector = await getVector(query);
     const searchResults = await this.qdrantClient.search(this.collectionName, {
       vector: queryVector,
-      limit: 3, // Get top 3 most relevant chunks
+      limit: 5,
+      with_payload: true,
     });
 
-    // 2. Build Context from Search Results
     const context = searchResults
-      .map((result) => result.payload?.content)
+      .map((result) => result.payload?.text)
       .filter(Boolean)
       .join('\n---\n');
 

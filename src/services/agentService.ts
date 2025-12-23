@@ -54,7 +54,12 @@ export const generateInitialNote = async (conversation: SendMessageToModelArgume
     ...conversationMessages,
   ];
 
-  return sendMessageToModel(messages);
+  const modelResponse = sendMessageToModel(messages);
+  if (!modelResponse) {
+    throw new Error('Model not answering');
+  }
+
+  return modelResponse;
 };
 
 export const generateRefinedNote = async (
@@ -94,7 +99,12 @@ export const generateRefinedNote = async (
     ...conversationMessages,
   ];
 
-  return sendMessageToModel(messages);
+  const modelResponse = sendMessageToModel(messages);
+  if (!modelResponse) {
+    throw new Error('Model not answering');
+  }
+
+  return modelResponse;
 };
 
 const sendMessageToModel = async (conversationTranscription: ChatCompletionMessageParam[]) => {
