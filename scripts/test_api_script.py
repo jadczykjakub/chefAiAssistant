@@ -6,7 +6,6 @@ import requests
 from requests import Response
 from requests.exceptions import RequestException, Timeout
 
-
 # -----------------------------------------------------------------------------
 # Configuration
 # -----------------------------------------------------------------------------
@@ -92,60 +91,31 @@ def run_tests():
 
     # start session
     try:
-        post_response = client.post(
-            endpoint="/api/session/start"
-        )
+        post_response = client.post(endpoint="/api/session/start")
 
         session_id = post_response.get("sessionId")
-        
+
         logger.info("POST response: %s", post_response)
     except Exception:
         logger.exception("POST test failed")
 
     if not session_id:
         return
-    
+
     form_questions_and_answers = [
-        {
-            "questionId": "celebration_type",
-            "userAnswer": "corporate event"
-        },
+        {"questionId": "celebration_type", "userAnswer": "corporate event"},
         {
             "questionId": "guests_count",
             "userAnswer": "50 persons",
         },
-        {
-            "questionId": "guests_allergies",
-            "userAnswer": "No"
-        },
-        {
-            "questionId": "cuisine_style",
-            "userAnswer": "Polish"
-        },
-        {
-            "questionId": "taste_preferences",
-            "userAnswer": "Spicy"
-        },
-        {
-            "questionId": "kitchen_equipment",
-            "userAnswer": "Kitchen fully equipped"
-        },
-        {
-            "questionId": "time_guests_arrive",
-            "userAnswer": "6 pm"
-        },
-        {
-            "questionId": "persons_budget",
-            "userAnswer": "350 zł"
-        },
-        {
-            "questionId": "event_personalization",
-            "userAnswer": "Christmas party"
-        },
-        {
-            "questionId": "generate_note_file",
-            "userAnswer": "Yes"
-        }
+        {"questionId": "guests_allergies", "userAnswer": "No"},
+        {"questionId": "cuisine_style", "userAnswer": "Polish"},
+        {"questionId": "taste_preferences", "userAnswer": "Spicy"},
+        {"questionId": "kitchen_equipment", "userAnswer": "Kitchen fully equipped"},
+        {"questionId": "time_guests_arrive", "userAnswer": "6 pm"},
+        {"questionId": "persons_budget", "userAnswer": "350 zł"},
+        {"questionId": "event_personalization", "userAnswer": "Christmas party"},
+        {"questionId": "generate_note_file", "userAnswer": "Yes"},
     ]
 
     # fill form
@@ -155,8 +125,8 @@ def run_tests():
                 "sessionId": session_id,
                 "data": {
                     "questionId": step.get("questionId"),
-                    "userAnswer": step.get("userAnswer")
-                }
+                    "userAnswer": step.get("userAnswer"),
+                },
             }
 
             post_response = client.post(

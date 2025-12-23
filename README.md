@@ -13,13 +13,39 @@ An intelligent cooking and event-planning assistant that guides you through orga
     npm i
 ```
 
-3. Run to build container
+3. Generate venv
+
+```bash
+    python -m venv venv  # on Windows
+    python3 -m venv venv # on Linux, Mac
+```
+
+4. Activate venv
+
+```bash
+    .\venv\Scripts\activate        # on Windows
+    source ./venv/scripts/activate # on Linux, Mac
+```
+
+5. Install dependencies
+
+```bash
+    pip install -r .\requirements.txt
+```
+
+6. Run script to fill vector db for RAG
+
+```bash
+    make fill-vector-db
+```
+
+7. Run to build container
 
 ```bash
     make build
 ```
 
-4. Run to run development environment
+8. Run to run development environment
 
 ```bash
     make up
@@ -41,21 +67,9 @@ An intelligent cooking and event-planning assistant that guides you through orga
 
 ### How to test api
 
-1. Generate venv
+You can run script that answers basic questions required to generate initial note.
 
-```bash
-    python -m venv venv  # on Windows
-    python3 -m venv venv # on Linux, Mac
-```
-
-2. Activate venv
-
-```bash
-    .\venv\Scripts\activate        # on Windows
-    source ./venv/scripts/activate # on Linux, Mac
-```
-
-3. Run
+Run
 
 ```bash
     make test-api
