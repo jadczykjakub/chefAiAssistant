@@ -49,4 +49,10 @@ lint-fix:
 # Test
 # -----------------------------
 test-api:
-	python .\test_api_script.py 
+	python .\scripts\test_api_script.py 
+
+# -----------------------------
+# Fill vector DB
+# -----------------------------
+fill-vector-db:
+	python .\scripts\fill_db_with_data_for_RAG.py

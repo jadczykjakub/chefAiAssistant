@@ -10,3 +10,6 @@ venv
 
 # Editors
 .vscode
+
+# RAG data
+rag_data/
