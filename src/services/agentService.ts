@@ -20,6 +20,13 @@ export const modelResponseSchema = z.object({
       category: z.string(),
     }),
   ),
+  suggested_dishes: z.array(
+    z.object({
+      course: z.string(),
+      dish_name: z.string(),
+      rationale: z.string(),
+    }),
+  ),
 });
 
 export type ModelResponse = z.infer<typeof modelResponseSchema>;

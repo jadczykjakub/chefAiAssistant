@@ -81,6 +81,7 @@ router.post('/initial', validate(bodySchema), async (req: Request, res: Response
   return res.json({
     summary: modelResponse?.note,
     questions: modelResponse?.questions,
+    suggested_dishes: modelResponse?.suggested_dishes,
     state: session.state,
   });
 });
@@ -155,10 +156,15 @@ router.post('/refine', validate(bodySchema), async (req: Request, res: Response)
     return res.json({
       summary: modelResponse.note,
       questions: modelResponse.questions,
+      suggested_dishes: modelResponse?.suggested_dishes,
       state: session.state,
     });
 
-  return res.json({ summary: modelResponse.note, state: session.state });
+  return res.json({
+    summary: modelResponse.note,
+    suggested_dishes: modelResponse?.suggested_dishes,
+    state: session.state,
+  });
 });
 
 export default router;
