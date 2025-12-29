@@ -8,6 +8,7 @@ import {
   SendMessageToModelArguments,
 } from '../services/agentService';
 import { INTERVIEW_QUESTIONS } from '../agents/chefAgent';
+import puppeteer, { Browser } from 'puppeteer';
 
 const router = Router();
 
@@ -165,6 +166,86 @@ router.post('/refine', validate(bodySchema), async (req: Request, res: Response)
     suggested_dishes: modelResponse?.suggested_dishes,
     state: session.state,
   });
+});
+
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Initial:
+ *      type: object
+ *      required:
+ *        - sessionId
+ *      properties:
+ *        sessionId:
+ *          type: string
+ *
+ * /agent/generate-pdf:
+ *   post:
+ *     summary: Generate PDF from last note
+ *     description: Generate PDF from last note.
+ *     tags: [Agent]
+ *     requestBody:
+ *        required: true
+ *        content:
+ *          application/pdf:
+ *            schema:
+ *              $ref: '#/components/schemas/Initial'
+ *     responses:
+ *       200:
+ *         description: downloadable pdf
+ *       400:
+ *         description: validation error
+ */
+router.post('/generate-pdf', async (req: Request, res: Response) => {
+  const initial: Body = req;
+  const reqBody = initial.body;
+
+  const session = getSessionById(reqBody.sessionId);
+  if (!session) return res.status(404).json({ err: 404, message: 'Session not found.' });
+
+  const lastModelResponse = session.history[session.history.length - 1];
+  const noteInHTML = lastModelResponse.note;
+
+  let browser: Browser | null = null;
+  try {
+    browser = await puppeteer.launch({
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+      headless: true,
+      // 'no-sandbox' is often required if running inside Docker
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+
+    const page = await browser.newPage();
+
+    // waitUntil: 'networkidle0' ensures external assets (images/css) load
+    await page.setContent(noteInHTML, { waitUntil: 'networkidle0' });
+
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      printBackground: true, // Printing CSS backgrounds
+      margin: {
+        top: '20px',
+        bottom: '20px',
+        left: '20px',
+        right: '20px',
+      },
+    });
+
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Length': pdfBuffer.length.toString(),
+      'Content-Disposition': 'attachment; filename="generated_note.pdf"',
+    });
+
+    return res.send(pdfBuffer);
+  } catch (error) {
+    console.error('PDF Generation Error:', error);
+
+    return res.status(500).send('Failed to generate PDF');
+  } finally {
+    if (browser) await browser.close();
+  }
 });
 
 export default router;

@@ -115,7 +115,7 @@ def run_tests():
         {"questionId": "time_guests_arrive", "userAnswer": "6 pm"},
         {"questionId": "persons_budget", "userAnswer": "350 zł"},
         {"questionId": "event_personalization", "userAnswer": "Christmas party"},
-        {"questionId": "generate_note_file", "userAnswer": "Yes"},
+        {"questionId": "generate_note_file", "userAnswer": "Yes. Generate PDF file"},
     ]
 
     # fill form
