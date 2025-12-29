@@ -19,6 +19,7 @@
     "express": "^4.18.2",
     "groq-sdk": "^0.37.0",
     "puppeteer": "^24.34.0",
+    "react-native-svg": "^15.12.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^13.0.0",
