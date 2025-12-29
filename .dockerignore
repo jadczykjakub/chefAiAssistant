@@ -20,3 +20,6 @@ venv
 
 # RAG data
 rag_data
+
+# Scripts
+scripts
