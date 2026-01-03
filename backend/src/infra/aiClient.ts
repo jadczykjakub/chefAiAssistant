@@ -13,7 +13,7 @@ import { getVector } from '../services/embeddingService';
  */
 export class GroqApiWrapper {
   private groqClient: Groq;
-  private defaultModel: string = 'openai/gpt-oss-120b';
+  private defaultModel: string = 'llama-3.3-70b-versatile';
 
   /**
    * Initializes the Groq client.
